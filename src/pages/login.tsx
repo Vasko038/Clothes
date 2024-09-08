@@ -1,12 +1,14 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Title from "antd/es/typography/Title";
 
 export const Login = () => {
 	const [form] = Form.useForm();
 	const navigate = useNavigate();
 
+	// Check if the user is already logged in on component mount
 	useEffect(() => {
 		const token = localStorage.getItem("token");
 
@@ -27,14 +29,17 @@ export const Login = () => {
 			}
 		};
 
-		// Async function inside useEffect
 		const checkUser = async () => {
 			if (token) {
 				const user = await findUser(token);
 				if (user) {
-					if (user.role === "user") navigate("/homepage");
-					else if (user.role === "admin")
+					if (user.role === "user") {
+						navigate("/homepage");
+						message.success("Welcome back!");
+					} else if (user.role === "admin") {
 						navigate("/admin");
+						message.success("Welcome back admin!");
+					}
 				}
 			}
 		};
@@ -42,6 +47,7 @@ export const Login = () => {
 		checkUser();
 	}, [navigate]);
 
+	// Handle form submission
 	const onFinish = async () => {
 		const data = form.getFieldsValue();
 
@@ -57,29 +63,33 @@ export const Login = () => {
 				}
 			);
 
-			if (res) {
-				// Store token in localStorage
+			if (res && res.data.token) {
 				localStorage.setItem("token", res.data.token);
-
-				console.log(res.data);
 
 				// Navigate based on user role
 				if (res.data.data.role === "user") {
-					console.log("navigate user");
 					navigate("/homepage");
+					message.success("Welcome back");
 				} else if (res.data.data.role === "admin") {
-					console.log("navigate admin");
 					navigate("/admin");
+					message.success("Welcome back admin!");
 				}
 			}
 		} catch (error) {
 			console.log("Login failed", error);
+			message.error("Email or password are wrong");
 		}
 	};
 
 	return (
-		<div>
-			<Form form={form} layout="vertical" onFinish={onFinish}>
+		<div className="px-10 pt-10">
+			<Form
+				form={form}
+				layout="vertical"
+				onFinish={onFinish}
+				className="w-[350px] mx-auto"
+			>
+				<Title level={3}>Login</Title>
 				<Form.Item
 					name="email"
 					label="Email"
@@ -90,7 +100,7 @@ export const Login = () => {
 						},
 					]}
 				>
-					<Input />
+					<Input className="h-11" />
 				</Form.Item>
 				<Form.Item
 					name="password"
@@ -102,12 +112,13 @@ export const Login = () => {
 						},
 					]}
 				>
-					<Input type="password" />
+					<Input type="password" className="h-11" />
 				</Form.Item>
+
 				<Button
 					htmlType="submit"
 					type="primary"
-					onClick={() => form.submit()}
+					className="h-11 w-[100%]"
 				>
 					Login
 				</Button>
