@@ -6,6 +6,9 @@ import {
 import { Login } from "./pages/login";
 import { ConfigProvider } from "antd";
 import ProtectedRoute from "./pages/protectedRoute";
+import Layout from "./components/Layout";
+import { createContext, useContext, useState } from "react";
+import { IUser } from "./interface";
 
 const routes = createBrowserRouter([
 	{
@@ -17,22 +20,39 @@ const routes = createBrowserRouter([
 		),
 		children: [
 			{
-				path: "/homepage",
-				element: <div>Homepage</div>,
+				path: "homepage",
+				element: <Layout />,
+				children: [],
 			},
 			{
-				path: "/admin",
+				path: "admin",
 				element: <div>Admin</div>,
 			},
 		],
 	},
 	{
-		path: "/login",
+		path: "login",
 		element: <Login />,
 	},
 ]);
 
+const UserContext = createContext<{
+	user: IUser;
+	setUser: (value: IUser) => void;
+}>({
+	user: {},
+	setUser: (value: IUser | null) => {
+		console.log(value);
+	},
+});
+
+export const useUser = () => {
+	return useContext(UserContext);
+};
+
 function App() {
+	const [user, setUser] = useState<IUser>({});
+
 	return (
 		<ConfigProvider
 			theme={{
@@ -41,7 +61,9 @@ function App() {
 				},
 			}}
 		>
-			<RouterProvider router={routes}></RouterProvider>
+			<UserContext.Provider value={{ user, setUser }}>
+				<RouterProvider router={routes}></RouterProvider>
+			</UserContext.Provider>
 		</ConfigProvider>
 	);
 }

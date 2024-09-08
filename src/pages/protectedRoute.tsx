@@ -1,6 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { findUser } from "../api/checkUser";
+import { Loading } from "../components/Loading";
+import { useUser } from "../App";
 
 const ProtectedRoute = ({
 	children,
@@ -8,32 +10,35 @@ const ProtectedRoute = ({
 	children: React.ReactNode;
 }) => {
 	const navigate = useNavigate();
+	const { setUser } = useUser();
+
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		const token = localStorage.getItem("token");
-
-		if (token) {
-			const checkUser = async () => {
-				const token = localStorage.getItem("token");
-
-				if (token) {
-					const user = await findUser(token);
-					if (user) {
-						if (user.role === "user") {
-							navigate("/homepage");
-							// message.success("Welcome back!");
-						} else if (user.role === "admin") {
-							navigate("/admin");
-						}
+		const checkUser = async () => {
+			const token = localStorage.getItem("token");
+			if (token) {
+				const user = await findUser(token);
+				if (user) {
+					if (user.role === "user") {
+						navigate("/homepage");
+					} else if (user.role === "admin") {
+						navigate("/admin");
 					}
+					setUser(user);
 				}
-			};
+			} else {
+				navigate("/login");
+			}
+			setLoading(false);
+		};
 
-			checkUser();
-		} else {
-			navigate("/login");
-		}
+		checkUser();
 	}, [navigate]);
+
+	if (loading) {
+		return <Loading />;
+	}
 
 	return children;
 };
