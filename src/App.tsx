@@ -6,8 +6,6 @@ import {
 import { Login } from "./pages/login";
 import { ConfigProvider } from "antd";
 import ProtectedRoute from "./pages/protectedRoute";
-import {createContext, useContext, useState} from "react";
-import {IUser} from "./interface";
 
 const routes = createBrowserRouter([
 	{
@@ -34,22 +32,7 @@ const routes = createBrowserRouter([
 	},
 ]);
 
-const UserContext = createContext<{
-	user: IUser,
-	setUser: (value: IUser) => void
-}>({
-	user: {},
-	setUser: (value: IUser | null) => {console.log(value)}
-});
-
-export const useUser = () => {
-	return useContext(UserContext);
-};
-
 function App() {
-	
-	const [user, setUser] = useState<IUser>({});
-	
 	return (
 		<ConfigProvider
 			theme={{
@@ -58,9 +41,7 @@ function App() {
 				},
 			}}
 		>
-			<UserContext.Provider value={{ user, setUser }}>
-				<RouterProvider router={routes}></RouterProvider>
-			</UserContext.Provider>
+			<RouterProvider router={routes}></RouterProvider>
 		</ConfigProvider>
 	);
 }

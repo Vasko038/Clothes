@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { findUser } from "../api/checkUser";
-import {useUser} from "../App.tsx";
 
 const ProtectedRoute = ({
 	children,
@@ -9,8 +8,6 @@ const ProtectedRoute = ({
 	children: React.ReactNode;
 }) => {
 	const navigate = useNavigate();
-	
-	const { setUser } = useUser();
 
 	useEffect(() => {
 		const token = localStorage.getItem("token");
@@ -28,7 +25,6 @@ const ProtectedRoute = ({
 						} else if (user.role === "admin") {
 							navigate("/admin");
 						}
-						setUser(user)
 					}
 				}
 			};
