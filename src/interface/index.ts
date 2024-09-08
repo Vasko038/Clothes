@@ -15,3 +15,29 @@ export interface IProduct {
 	sizes: ISize[];
 	description: string;
 }
+
+export interface IOrder {
+	id: number | string;
+	userId: number | string,
+	date: string,
+	status: "Processing" | "Completed",
+	items: {
+		productId: number | string,
+		count: number,
+		price: number,
+		color: IColor,
+		size: ISize
+		}[]
+}
+
+export interface IUser {
+	id?: number | string,
+	fullname?: string,
+	email?: string,
+	street?: string,
+	city?: string,
+	state?: string,
+	zip?: string,
+	country?: string,
+	role?: "user" | "admin",
+}
