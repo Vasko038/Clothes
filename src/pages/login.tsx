@@ -1,44 +1,25 @@
 import { Button, Form, Input, message } from "antd";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../api/auth";
 import { useEffect } from "react";
-import Title from "antd/es/typography/Title";
+import { findUser } from "../api/checkUser";
 
 export const Login = () => {
 	const [form] = Form.useForm();
 	const navigate = useNavigate();
+	const [login] = useLoginMutation();
 
-	// Check if the user is already logged in on component mount
 	useEffect(() => {
-		const token = localStorage.getItem("token");
-
-		const findUser = async (token: string) => {
-			try {
-				const res = await axios.get(
-					"https://4e25aed7bbe24666.mokky.dev/auth_me",
-					{
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					}
-				);
-				return res.data;
-			} catch (error) {
-				console.error("Failed to fetch user info:", error);
-				return null;
-			}
-		};
-
 		const checkUser = async () => {
+			const token = localStorage.getItem("token");
+
 			if (token) {
 				const user = await findUser(token);
 				if (user) {
 					if (user.role === "user") {
 						navigate("/homepage");
-						message.success("Welcome back!");
 					} else if (user.role === "admin") {
 						navigate("/admin");
-						message.success("Welcome back admin!");
 					}
 				}
 			}
@@ -47,35 +28,26 @@ export const Login = () => {
 		checkUser();
 	}, [navigate]);
 
-	// Handle form submission
 	const onFinish = async () => {
 		const data = form.getFieldsValue();
-
 		try {
-			const res = await axios.post(
-				"https://4e25aed7bbe24666.mokky.dev/auth",
-				data,
-				{
-					headers: {
-						Accept: "application/json",
-						"Content-Type": "application/json",
-					},
-				}
-			);
+			// Login so'rovi
+			const res = await login(data).unwrap();
 
-			if (res && res.data.token) {
-				localStorage.setItem("token", res.data.token);
+			console.log({ res });
 
-				// Navigate based on user role
-				if (res.data.data.role === "user") {
-					navigate("/homepage");
-					message.success("Welcome back");
-				} else if (res.data.data.role === "admin") {
-					navigate("/admin");
-					message.success("Welcome back admin!");
-				}
+			localStorage.setItem("token", res.token);
+
+			// User yoki admin bo'lsa, yo'naltirish
+			if (res.data.role === "user") {
+				navigate("/homepage");
+				message.success("Welcome back");
+			} else if (res.data.role === "admin") {
+				navigate("/admin");
+				message.success("Welcome back admin!");
 			}
 		} catch (error) {
+			// Xatolikni qaytarish
 			console.log("Login failed", error);
 			message.error("Email or password are wrong");
 		}
@@ -89,7 +61,6 @@ export const Login = () => {
 				onFinish={onFinish}
 				className="w-[350px] mx-auto"
 			>
-				<Title level={3}>Login</Title>
 				<Form.Item
 					name="email"
 					label="Email"
