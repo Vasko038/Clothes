@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { findUser } from "../api/checkUser";
+import { useUser } from "../App";
 import { Loading } from "../components/Loading";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [loading, setLoading] = useState(true);
+  const { setUser } = useUser();
 
   useEffect(() => {
     const checkUser = async () => {
@@ -16,7 +18,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
         if (user) {
           if (user.role === "user") {
             if (location.pathname === "/") {
-              navigate("/homepage", { replace: true });
+              navigate("/homepage/ch", { replace: true });
             } else if (location.pathname.startsWith("/admin")) {
               navigate("/admin", { replace: true });
             }
@@ -26,6 +28,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
           ) {
             navigate("/admin", { replace: true });
           }
+          setUser(user);
         }
       } else {
         navigate("/login", { replace: true });

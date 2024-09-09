@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.ant-menu-item-selected{
+    background-color: #F6F2F3 !important;
+    font-weight: 600;
+}
