@@ -48,3 +48,15 @@ export interface IWishlist {
   userId: number | string;
   productId: number | string;
 }
+
+export interface ICategoty {
+  id: number | string;
+  name: string;
+}
+
+export interface IProductFilters {
+  categories: Array<string>;
+  color: string;
+  size: string;
+  price: [number, number];
+}

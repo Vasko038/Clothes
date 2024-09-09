@@ -8,6 +8,7 @@ import { IUser } from "./interface";
 import About from "./pages/home/About";
 import { Profile } from "./pages/home/Profile/profile.tsx";
 import { Signup } from "./pages/signup.tsx";
+import { Listing } from "./pages/home/listing.tsx";
 
 const routes = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const routes = createBrowserRouter([
           {
             path: "profile",
             element: <Profile />,
+          },
+          {
+            path: "listing",
+            element: <Listing />,
           },
         ],
       },
