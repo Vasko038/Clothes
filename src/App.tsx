@@ -9,7 +9,7 @@ import ProtectedRoute from "./pages/protectedRoute";
 import Layout from "./components/Layout";
 import { createContext, useContext, useState } from "react";
 import { IUser } from "./interface";
-import {Profile} from "./pages/home/profile.tsx";
+import {Profile} from "./pages/home/Profile/profile.tsx";
 
 const routes = createBrowserRouter([
 	{

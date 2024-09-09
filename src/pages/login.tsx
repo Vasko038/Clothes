@@ -31,14 +31,10 @@ export const Login = () => {
 	const onFinish = async () => {
 		const data = form.getFieldsValue();
 		try {
-			// Login so'rovi
 			const res = await login(data).unwrap();
-
-			console.log({ res });
 
 			localStorage.setItem("token", res.token);
 
-			// User yoki admin bo'lsa, yo'naltirish
 			if (res.data.role === "user") {
 				navigate("/homepage");
 				message.success("Welcome back");
@@ -47,7 +43,6 @@ export const Login = () => {
 				message.success("Welcome back admin!");
 			}
 		} catch (error) {
-			// Xatolikni qaytarish
 			console.log("Login failed", error);
 			message.error("Email or password are wrong");
 		}
