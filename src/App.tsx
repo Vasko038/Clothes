@@ -16,7 +16,17 @@ const routes = createBrowserRouter([
       {
         path: "homepage",
         element: <Layout />,
-        children: [],
+        children: [
+          {
+            index: true,
+            path: "ch",
+            element: <div>Child 1</div>,
+          },
+          {
+            path: "chil",
+            element: <div>Child 2</div>,
+          },
+        ],
       },
       {
         path: "admin",
