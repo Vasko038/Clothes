@@ -12,6 +12,7 @@ import { Address } from "./address.tsx";
 import { Wishlist } from "./wishlist.tsx";
 import { Password } from "./password.tsx";
 import { AccountDetails } from "./account-details.tsx";
+import { Logout } from "./logout.tsx";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -68,7 +69,7 @@ export const Profile: React.FC = () => {
       case "account-details":
         return <AccountDetails />;
       case "log-out":
-        return <div>Logging Out</div>;
+        return <Logout />;
       default:
         return <div>Select a menu item</div>;
     }

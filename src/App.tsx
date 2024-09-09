@@ -6,7 +6,8 @@ import Layout from "./components/Layout";
 import { createContext, useContext, useState } from "react";
 import { IUser } from "./interface";
 import About from "./pages/home/About";
-import {Profile} from "./pages/home/Profile/profile.tsx";
+import { Profile } from "./pages/home/Profile/profile.tsx";
+import { Signup } from "./pages/signup.tsx";
 
 const routes = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const routes = createBrowserRouter([
   {
     path: "login",
     element: <Login />,
+  },
+  {
+    path: "signup",
+    element: <Signup />,
   },
 ]);
 

@@ -6,13 +6,13 @@ function Layout() {
   return (
     <>
       <header>header</header>
-      <Link to={"/homepage/profile"}>Profile</Link>
       <div className="">
         <header className="flex justify-between py-2">
           <Title level={3}>eEcnomerse</Title>
           <nav className=" flex gap-3">
             <Link to="ch">Child 1</Link>
             <Link to="chil">Child 2</Link>
+            <Link to={"/home/profile"}>Profile</Link>
           </nav>
           <div>
             <Avatar>sdf</Avatar>

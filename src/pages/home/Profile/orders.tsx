@@ -58,7 +58,7 @@ export const Orders = () => {
                     className="mt-1"
                     style={
                       order.status == "Completed"
-                        ? { color: "green" }
+                        ? { color: "#00b96b" }
                         : { color: "red" }
                     }
                   >
@@ -76,7 +76,7 @@ export const Orders = () => {
             <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
             <p>Your order history is waiting to be filled</p>
             <Button className="mt-4" type="primary">
-              Products
+              Start shopping
             </Button>
           </div>
         )}
