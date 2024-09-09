@@ -1,45 +1,50 @@
-import {
-	createBrowserRouter,
-	Outlet,
-	RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Login } from "./pages/login";
 import { ConfigProvider } from "antd";
 import ProtectedRoute from "./pages/protectedRoute";
 import Layout from "./components/Layout";
 import { createContext, useContext, useState } from "react";
 import { IUser } from "./interface";
+import About from "./pages/home/About";
 import {Profile} from "./pages/home/Profile/profile.tsx";
 
 const routes = createBrowserRouter([
-	{
-		path: "/",
-		element: (
-			<ProtectedRoute>
-				<Outlet />
-			</ProtectedRoute>
-		),
-		children: [
-			{
-				path: "homepage",
-				element: <Layout />,
-				children: [
-					{
-						path: "profile",
-						element: <Profile/>
-					}
-				],
-			},
-			{
-				path: "admin",
-				element: <div>Admin</div>,
-			},
-		],
-	},
-	{
-		path: "login",
-		element: <Login />,
-	},
+  {
+    path: "/",
+    element: (
+      <ProtectedRoute>
+        <Outlet />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        path: "home",
+        element: <Layout />,
+        children: [
+          {
+            path: "about",
+            element: <About />,
+          },
+          {
+            path: "contact",
+            element: <About />,
+          },
+          {
+            path: "profile",
+            element: <Profile />,
+          },
+        ],
+      },
+      {
+        path: "admin",
+        element: <div>Admin</div>,
+      },
+    ],
+  },
+  {
+    path: "login",
+    element: <Login />,
+  },
 ]);
 
 const UserContext = createContext<{
