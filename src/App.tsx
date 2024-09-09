@@ -9,6 +9,7 @@ import ProtectedRoute from "./pages/protectedRoute";
 import Layout from "./components/Layout";
 import { createContext, useContext, useState } from "react";
 import { IUser } from "./interface";
+import {Profile} from "./pages/home/profile.tsx";
 
 const routes = createBrowserRouter([
 	{
@@ -22,7 +23,12 @@ const routes = createBrowserRouter([
 			{
 				path: "homepage",
 				element: <Layout />,
-				children: [],
+				children: [
+					{
+						path: "profile",
+						element: <Profile/>
+					}
+				],
 			},
 			{
 				path: "admin",

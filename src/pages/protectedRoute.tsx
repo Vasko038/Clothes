@@ -34,7 +34,7 @@ const ProtectedRoute = ({
 		};
 
 		checkUser();
-	}, [navigate]);
+	}, []);
 
 	if (loading) {
 		return <Loading />;
