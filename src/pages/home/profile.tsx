@@ -64,7 +64,7 @@ export const Profile: React.FC = () => {
 			case "account-details":
 				return <div>Account Details</div>;
 			case "log-out":
-				return <div>Logging Out...</div>;
+				return <div>Logging Out</div>;
 			default:
 				return <div>Select a menu item</div>;
 		}
