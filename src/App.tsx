@@ -5,6 +5,7 @@ import ProtectedRoute from "./pages/protectedRoute";
 import Layout from "./components/Layout";
 import { createContext, useContext, useState } from "react";
 import { IUser } from "./interface";
+import About from "./pages/home/About";
 
 const routes = createBrowserRouter([
   {
@@ -16,17 +17,16 @@ const routes = createBrowserRouter([
     ),
     children: [
       {
-        path: "homepage",
+        path: "home",
         element: <Layout />,
         children: [
           {
-            index: true,
-            path: "ch",
-            element: <div>Child 1</div>,
+            path: "about",
+            element: <About />,
           },
           {
-            path: "chil",
-            element: <div>Child 2</div>,
+            path: "contact",
+            element: <About />,
           },
         ],
       },

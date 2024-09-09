@@ -1,4 +1,4 @@
-import { Avatar, Typography } from "antd";
+import { Avatar, Divider, Typography } from "antd";
 import { Link, Outlet } from "react-router-dom";
 const { Title } = Typography;
 
@@ -15,6 +15,7 @@ function Layout() {
           <Avatar>sdf</Avatar>
         </div>
       </header>
+      <Divider style={{ margin: 0 }} />
       <main>
         <Outlet />
       </main>
