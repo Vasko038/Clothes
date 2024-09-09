@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { findUser } from "../api/checkUser";
-import { useUser } from "../App";
 import { Loading } from "../components/Loading";
+import { useUser } from "../App";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();

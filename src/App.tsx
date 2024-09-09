@@ -6,6 +6,7 @@ import Layout from "./components/Layout";
 import { createContext, useContext, useState } from "react";
 import { IUser } from "./interface";
 import About from "./pages/home/About";
+import { Profile } from "./pages/home/profile";
 
 const routes = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const routes = createBrowserRouter([
           {
             path: "contact",
             element: <About />,
+          },
+          {
+            path: "profile",
+            element: <Profile />,
           },
         ],
       },
