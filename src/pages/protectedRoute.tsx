@@ -16,19 +16,18 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
       if (token) {
         const user = await findUser(token);
         if (user) {
+          setUser(user);
           if (user.role === "user") {
+            if (location.pathname.startsWith("/admin")) {
+              navigate("/homepage", { replace: true });
+            } else if (location.pathname === "/") {
+              navigate("/homepage", { replace: true });
+            }
+          } else if (user.role === "admin") {
             if (location.pathname === "/") {
-              navigate("/homepage/ch", { replace: true });
-            } else if (location.pathname.startsWith("/admin")) {
               navigate("/admin", { replace: true });
             }
-          } else if (
-            user.role === "admin" &&
-            !location.pathname.startsWith("/admin")
-          ) {
-            navigate("/admin", { replace: true });
           }
-          setUser(user);
         }
       } else {
         navigate("/login", { replace: true });
@@ -38,7 +37,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     };
 
     checkUser();
-  }, [navigate, location.pathname]);
+  }, []);
 
   if (loading) {
     return <Loading />;
