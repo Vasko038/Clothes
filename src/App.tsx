@@ -43,35 +43,35 @@ const routes = createBrowserRouter([
 ]);
 
 const UserContext = createContext<{
-	user: IUser;
-	setUser: (value: IUser) => void;
+  user: IUser;
+  setUser: (value: IUser) => void;
 }>({
-	user: {},
-	setUser: (value: IUser | null) => {
-		console.log(value);
-	},
+  user: {},
+  setUser: (value: IUser | null) => {
+    console.log(value);
+  },
 });
 
 export const useUser = () => {
-	return useContext(UserContext);
+  return useContext(UserContext);
 };
 
 function App() {
-	const [user, setUser] = useState<IUser>({});
+  const [user, setUser] = useState<IUser>({});
 
-	return (
-		<ConfigProvider
-			theme={{
-				token: {
-					colorPrimary: "#0E1422",
-				},
-			}}
-		>
-			<UserContext.Provider value={{ user, setUser }}>
-				<RouterProvider router={routes}></RouterProvider>
-			</UserContext.Provider>
-		</ConfigProvider>
-	);
+  return (
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: "#0E1422",
+        },
+      }}
+    >
+      <UserContext.Provider value={{ user, setUser }}>
+        <RouterProvider router={routes}></RouterProvider>
+      </UserContext.Provider>
+    </ConfigProvider>
+  );
 }
 
 export default App;
