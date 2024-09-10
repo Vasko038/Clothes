@@ -20,7 +20,7 @@ export const Listing: React.FC = () => {
     categories: [],
     color: "",
     size: "",
-    price: [0, 1000],
+    price: [0, 200],
   });
 
   const [page, setPage] = useState<number>(1);
@@ -78,7 +78,7 @@ export const Listing: React.FC = () => {
   console.log({ products });
 
   return (
-    <Row gutter={32} className="px-[170px]">
+    <Row gutter={32} className="px-[170px] w-[100%]">
       <Col
         span={6}
         className="max-w-[250px]"
@@ -198,7 +198,7 @@ export const Listing: React.FC = () => {
         <Slider
           range
           min={0}
-          max={1000}
+          max={200}
           defaultValue={[0, 1000]}
           onChange={handlePriceChange}
         />

@@ -4,8 +4,7 @@ import { IOrder, IProduct } from "../../../interface";
 import { useGetOrdersByUserIdQuery } from "../../../api/orders.ts";
 import { useUser } from "../../../App.tsx";
 import { useGetProductsQuery } from "../../../api/products.ts";
-import { Button } from "antd";
-import { Empty } from "antd";
+import { Button, Empty } from "antd";
 
 export const Orders = () => {
   const { user } = useUser();
@@ -24,19 +23,19 @@ export const Orders = () => {
     <div className="ps-5">
       <Title level={3}>Orders</Title>
       <div>
-        {orders.length ? (
-          orders.map((order: IOrder, index: number) => {
-            const product = products.find(
-              (p: IProduct) => p.id === order.items[0].productId,
-            );
+        {orders?.length ? (
+          orders.map((order: IOrder) => {
+            if (!products || !order.items?.length) return null;
 
+            const product = products.find(
+              (p: IProduct) => p.id === order.items[0]?.productId,
+            );
+            if (!product) return null;
             return (
               <div
                 key={order.id}
                 className="flex py-5 justify-between"
-                style={
-                  index % 2 == 0 ? { borderBottom: "1px solid #E9E9EB" } : {}
-                }
+                style={{ borderBottom: "1px solid #E9E9EB" }}
               >
                 <div className="flex">
                   <img
@@ -48,7 +47,7 @@ export const Orders = () => {
                     <Title level={5}>{product.title}</Title>
                     <p className="text-gray-600">Ordered on: {order.date}</p>
                     <p className="text-lg">
-                      ${order.items[0].price * order.items[0].count}
+                      ${order.items[0].price * order.items[0].count}.00
                     </p>
                   </div>
                 </div>
@@ -57,7 +56,7 @@ export const Orders = () => {
                     level={5}
                     className="mt-1"
                     style={
-                      order.status == "Completed"
+                      order.status === "Completed"
                         ? { color: "#00b96b" }
                         : { color: "red" }
                     }

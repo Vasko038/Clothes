@@ -1,10 +1,13 @@
 import { useUser } from "../../../App.tsx";
 import { useGetProductsQuery } from "../../../api/products.ts";
 import { Loading } from "../../../components/Loading.tsx";
-import { useGetWishlistByUserIdQuery } from "../../../api/wishlist.ts";
+import {
+  useDeleteWishlistMutation,
+  useGetWishlistByUserIdQuery,
+} from "../../../api/wishlist.ts";
 import Title from "antd/es/typography/Title";
 import { IProduct, IWishlist } from "../../../interface";
-import { Button, Empty } from "antd";
+import { Button, Empty, message } from "antd";
 
 export const Wishlist = () => {
   const { user } = useUser();
@@ -15,6 +18,16 @@ export const Wishlist = () => {
   } = useGetWishlistByUserIdQuery(user?.id ?? "");
 
   const { data: products } = useGetProductsQuery(undefined);
+  const [deleteWishlist] = useDeleteWishlistMutation();
+
+  const onDelete = (id: number | string) => {
+    try {
+      deleteWishlist(id);
+      message.success("Wishlist deleted");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   if (isLoading) return <Loading />;
   if (error) return <div className="text-red-600">Error occured</div>;
@@ -24,18 +37,16 @@ export const Wishlist = () => {
       <Title level={3}>Wishlist</Title>
       <div>
         {wishlist.length ? (
-          wishlist.map((wishlist: IWishlist, index: number) => {
+          wishlist.map((wish: IWishlist) => {
             const product = products.find(
-              (p: IProduct) => p.id === wishlist.productId,
+              (p: IProduct) => p.id === wish.productId,
             );
 
             return (
               <div
-                key={wishlist.id}
+                key={wish.id}
                 className="flex py-5 justify-between"
-                style={
-                  index % 2 == 0 ? { borderBottom: "1px solid #E9E9EB" } : {}
-                }
+                style={{ borderBottom: "1px solid #E9E9EB" }}
               >
                 <div className="flex">
                   <img
@@ -45,7 +56,7 @@ export const Wishlist = () => {
                   />
                   <div className="ps-8 me-3 xl:me-16">
                     <Title level={5}>{product.title}</Title>
-                    <p className="text-lg">${product.price}</p>
+                    <p className="text-lg">${product.price}.00</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-5">
@@ -53,6 +64,9 @@ export const Wishlist = () => {
                     level={5}
                     className="mt-1"
                     style={{ cursor: "pointer", color: "red" }}
+                    onClick={() => {
+                      if (wish.id) onDelete(wish.id);
+                    }}
                   >
                     Remove
                   </Title>
