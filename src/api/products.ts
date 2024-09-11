@@ -30,6 +30,14 @@ export const productsApi = createApi({
           );
         }
 
+        if (params.color) {
+          queryParts.push(`colors.color=${params.color}`);
+        }
+
+        if (params.size) {
+          queryParts.push(`sizes.size=${params.size}`);
+        }
+
         return {
           url: `?${queryParts.join("&")}&page=${page}&limit=9`,
           method: "get",

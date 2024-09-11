@@ -1,5 +1,5 @@
 type IColor = "black" | "white" | "red" | "yellow";
-type ISize = "S" | "M" | "L" | "X" | "XL" | "XXL";
+type ISize = "S" | "M" | "L" | "X" | "XL";
 
 export interface IProduct {
   id: number | string;
@@ -11,8 +11,8 @@ export interface IProduct {
   img: string;
   slug: string;
   sku: string;
-  colors: IColor[];
-  sizes: ISize[];
+  colors: { color: IColor }[];
+  sizes: { size: ISize }[];
   description: string;
 }
 
@@ -59,4 +59,21 @@ export interface IProductFilters {
   color: string;
   size: string;
   price: [number, number];
+}
+
+export interface product {
+  id: number | string;
+  title: string;
+  description: string;
+  price: number;
+  categoryId: number | string;
+  slug: string;
+  sku: string;
+  variants: {
+    id: number | string;
+    color: IColor;
+    size: ISize;
+    count: number;
+    image: string;
+  }[];
 }
