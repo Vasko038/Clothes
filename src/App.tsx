@@ -7,6 +7,7 @@ import { createContext, useContext, useState } from "react";
 import { IUser } from "./interface";
 import About from "./pages/home/About";
 import { Profile } from "./pages/home/profile";
+import Home from "./pages/home/Home";
 
 const routes = createBrowserRouter([
   {
@@ -18,9 +19,10 @@ const routes = createBrowserRouter([
     ),
     children: [
       {
-        path: "home",
+        path: "ecnomerse",
         element: <Layout />,
         children: [
+          { path: "home", element: <Home /> },
           {
             path: "about",
             element: <About />,

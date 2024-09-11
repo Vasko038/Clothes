@@ -19,9 +19,9 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
           setUser(user);
           if (user.role === "user") {
             if (location.pathname.startsWith("/admin")) {
-              navigate("/home", { replace: true });
+              navigate("/ecnomerse", { replace: true });
             } else if (location.pathname === "/") {
-              navigate("/home", { replace: true });
+              navigate("/ecnomerse", { replace: true });
             }
           } else if (user.role === "admin") {
             if (location.pathname === "/") {
@@ -35,7 +35,6 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
       setLoading(false);
     };
-
     checkUser();
   }, []);
 
