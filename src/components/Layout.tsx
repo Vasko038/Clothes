@@ -1,8 +1,11 @@
 import { Avatar, Divider, Typography } from "antd";
 import { Link, Outlet } from "react-router-dom";
+import { useUser } from "../App.tsx";
 const { Title } = Typography;
 
 function Layout() {
+  const { user } = useUser();
+
   return (
     <>
       <div className="max-w-[1200px] mx-auto px-4">
@@ -16,7 +19,14 @@ function Layout() {
             <Link to="listing">Listing</Link>
           </nav>
           <div>
-            <Avatar>A</Avatar>
+            <Avatar>
+              {user.fullname
+                ? user.fullname
+                    .split(" ")
+                    .map((part) => part[0].toUpperCase())
+                    .join("")
+                : "A"}
+            </Avatar>
           </div>
         </header>
         <Divider style={{ margin: 0 }} />

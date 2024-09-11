@@ -76,7 +76,7 @@ export const Profile: React.FC = () => {
   };
 
   return (
-    <div className="mx-10 xl:mx-44 flex">
+    <div className="mx-6 flex">
       <Menu
         onClick={onClick}
         style={{ width: 256 }}

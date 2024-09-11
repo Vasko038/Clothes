@@ -78,7 +78,7 @@ export const Listing: React.FC = () => {
   console.log({ products });
 
   return (
-    <Row gutter={32} className="px-[170px] w-[100%]">
+    <Row gutter={32} className="mx-6 w-[100%]">
       <Col
         span={6}
         className="max-w-[250px]"
@@ -214,7 +214,15 @@ export const Listing: React.FC = () => {
               <div className="mt-8 cursor-pointer">
                 <img
                   alt="product image"
-                  src={product.images[0].image}
+                  src={
+                    filters.color == "red"
+                      ? product.images[3].image
+                      : filters.color == "white"
+                        ? product.images[1].image
+                        : filters.color == "yellow"
+                          ? product.images[2].image
+                          : product.images[0].image
+                  }
                   style={{ width: "100%", height: "250px", objectFit: "cover" }}
                 />
                 <Title level={5} className="mt-6 mb-4">

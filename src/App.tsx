@@ -11,6 +11,7 @@ import { Profile } from "./pages/home/Profile/profile.tsx";
 import { Signup } from "./pages/signup.tsx";
 import { Listing } from "./pages/home/listing.tsx";
 import Home from "./pages/home/Home.tsx";
+import Contact from "./pages/home/Contact.tsx";
 
 const routes = createBrowserRouter([
   {
@@ -32,7 +33,7 @@ const routes = createBrowserRouter([
           },
           {
             path: "contact",
-            element: <About />,
+            element: <Contact />,
           },
           {
             path: "profile",
