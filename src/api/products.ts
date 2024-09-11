@@ -5,24 +5,11 @@ import { axiosBaseQuery } from ".";
 export const productsApi = createApi({
   reducerPath: "productsApi",
   baseQuery: axiosBaseQuery({
-<<<<<<< HEAD
-    baseUrl: "https://4e25aed7bbe24666.mokky.dev", // Sizning API bazaviy URLingiz
-=======
     baseUrl: "https://4e25aed7bbe24666.mokky.dev/products", // Sizning API bazaviy URLingiz
->>>>>>> cd7cc13c6a9f3b8a0445c5ebfbd1c67f814af291
   }),
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: () => ({
-<<<<<<< HEAD
-        url: "/products",
-        method: "get",
-      }),
-    }),
-    getProductById: builder.query({
-      query: (id: string | number) => ({
-        url: `/products/${id}`,
-=======
         url: "",
         method: "get",
       }),
@@ -43,6 +30,14 @@ export const productsApi = createApi({
           );
         }
 
+        if (params.color) {
+          queryParts.push(`colors.color=${params.color}`);
+        }
+
+        if (params.size) {
+          queryParts.push(`sizes.size=${params.size}`);
+        }
+
         return {
           url: `?${queryParts.join("&")}&page=${page}&limit=9`,
           method: "get",
@@ -53,17 +48,12 @@ export const productsApi = createApi({
     getProductById: builder.query({
       query: (id: string | number) => ({
         url: `/${id}`,
->>>>>>> cd7cc13c6a9f3b8a0445c5ebfbd1c67f814af291
         method: "get",
       }),
     }),
     createProduct: builder.mutation({
       query: (newProduct: IProduct) => ({
-<<<<<<< HEAD
-        url: "/products",
-=======
         url: "",
->>>>>>> cd7cc13c6a9f3b8a0445c5ebfbd1c67f814af291
         method: "post",
         data: newProduct,
       }),
@@ -76,22 +66,14 @@ export const productsApi = createApi({
         id: string | number;
         newProduct: IProduct;
       }) => ({
-<<<<<<< HEAD
-        url: `/products/${id}`,
-=======
         url: `/${id}`,
->>>>>>> cd7cc13c6a9f3b8a0445c5ebfbd1c67f814af291
         method: "patch",
         data: newProduct,
       }),
     }),
     deleteProduct: builder.mutation({
       query: (id: string | number) => ({
-<<<<<<< HEAD
-        url: `/products/${id}`,
-=======
         url: `/${id}`,
->>>>>>> cd7cc13c6a9f3b8a0445c5ebfbd1c67f814af291
         method: "delete",
       }),
     }),
@@ -100,10 +82,7 @@ export const productsApi = createApi({
 
 export const {
   useGetProductsQuery,
-<<<<<<< HEAD
-=======
   useGetProductsFilterQuery,
->>>>>>> cd7cc13c6a9f3b8a0445c5ebfbd1c67f814af291
   useGetProductByIdQuery,
   useEditProductMutation,
   useDeleteProductMutation,
