@@ -17,7 +17,7 @@ export const Login = () => {
         const user = await findUser(token);
         if (user) {
           if (user.role === "user") {
-            navigate("/home");
+            navigate("/ecommerse");
           } else if (user.role === "admin") {
             navigate("/admin");
           }
@@ -36,7 +36,7 @@ export const Login = () => {
       localStorage.setItem("token", res.token);
 
       if (res.data.role === "user") {
-        navigate("/home");
+        navigate("/ecommerse");
         message.success("Welcome back");
       } else if (res.data.role === "admin") {
         navigate("/admin");

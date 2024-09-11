@@ -22,7 +22,7 @@ const routes = createBrowserRouter([
     ),
     children: [
       {
-        path: "ecnomerse",
+        path: "ecommerse",
         element: <Layout />,
         children: [
           { path: "home", element: <Home /> },

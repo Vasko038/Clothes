@@ -19,9 +19,9 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
           setUser(user);
           if (user.role === "user") {
             if (location.pathname.startsWith("/admin")) {
-              navigate("/ecnomerse", { replace: true });
+              navigate("/ecommerse", { replace: true });
             } else if (location.pathname === "/") {
-              navigate("/ecnomerse", { replace: true });
+              navigate("/ecommerse", { replace: true });
             }
           } else if (user.role === "admin") {
             if (location.pathname === "/") {

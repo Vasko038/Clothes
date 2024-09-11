@@ -38,7 +38,7 @@ export const Wishlist = () => {
       <div>
         {wishlist.length ? (
           wishlist.map((wish: IWishlist) => {
-            const product = products.find(
+            const product: IProduct = products.find(
               (p: IProduct) => p.id === wish.productId,
             );
 
@@ -50,7 +50,7 @@ export const Wishlist = () => {
               >
                 <div className="flex">
                   <img
-                    src={product.img}
+                    src={product.images[0].image}
                     style={{ width: "80px", height: "80px" }}
                     alt="product image"
                   />

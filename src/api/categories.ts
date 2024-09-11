@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { ICategoty } from "../interface";
+import { ICategory } from "../interface";
 import { axiosBaseQuery } from ".";
 
 export const categoriesApi = createApi({
@@ -21,7 +21,7 @@ export const categoriesApi = createApi({
       }),
     }),
     createCategory: builder.mutation({
-      query: (newCategory: ICategoty) => ({
+      query: (newCategory: ICategory) => ({
         url: "",
         method: "post",
         data: newCategory,
@@ -33,7 +33,7 @@ export const categoriesApi = createApi({
         newCategory,
       }: {
         id: string | number;
-        newCategory: ICategoty;
+        newCategory: ICategory;
       }) => ({
         url: `/${id}`,
         method: "patch",

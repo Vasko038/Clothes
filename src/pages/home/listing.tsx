@@ -11,7 +11,7 @@ import {
 } from "antd";
 import { useGetProductsFilterQuery } from "../../api/products.ts";
 import { Loading } from "../../components/Loading.tsx";
-import { ICategoty, IProduct, IProductFilters } from "../../interface";
+import { ICategory, IProduct, IProductFilters } from "../../interface";
 import { useGetCategoriesQuery } from "../../api/categories.ts";
 const { Title } = Typography;
 
@@ -91,7 +91,7 @@ export const Listing: React.FC = () => {
       >
         <Title level={4}>Categories</Title>
         <Checkbox.Group onChange={handleCategoryChange}>
-          {categories.map((c: ICategoty) => (
+          {categories.map((c: ICategory) => (
             <div
               key={c.id}
               style={{ width: "100%", borderBottom: "1px solid #E6E7E8" }}
@@ -214,7 +214,7 @@ export const Listing: React.FC = () => {
               <div className="mt-8 cursor-pointer">
                 <img
                   alt="product image"
-                  src={product.img}
+                  src={product.images[0].image}
                   style={{ width: "100%", height: "250px", objectFit: "cover" }}
                 />
                 <Title level={5} className="mt-6 mb-4">
@@ -230,7 +230,7 @@ export const Listing: React.FC = () => {
                     }}
                     className="flex items-center justify-center"
                   >
-                    {product.stock ? "In stock" : "Out of stock"}
+                    {product ? "In stock" : "Out of stock"}
                   </div>
                   <p className="text-gray-600">${product.price}</p>
                 </div>

@@ -4,16 +4,21 @@ type ISize = "S" | "M" | "L" | "X" | "XL";
 export interface IProduct {
   id: number | string;
   title: string;
-  stock: boolean;
   price: number;
-  quantity: number;
   categoryId: number | string;
-  img: string;
   slug: string;
   sku: string;
-  colors: { color: IColor }[];
-  sizes: { size: ISize }[];
   description: string;
+  images: {
+    color: IColor;
+    image: string;
+  }[];
+  colors: {
+    id: number | string;
+    color: IColor;
+    size: ISize;
+    quantity: number;
+  }[];
 }
 
 export interface IOrder {
@@ -49,7 +54,7 @@ export interface IWishlist {
   productId: number | string;
 }
 
-export interface ICategoty {
+export interface ICategory {
   id: number | string;
   name: string;
 }
@@ -59,21 +64,4 @@ export interface IProductFilters {
   color: string;
   size: string;
   price: [number, number];
-}
-
-export interface product {
-  id: number | string;
-  title: string;
-  description: string;
-  price: number;
-  categoryId: number | string;
-  slug: string;
-  sku: string;
-  variants: {
-    id: number | string;
-    color: IColor;
-    size: ISize;
-    count: number;
-    image: string;
-  }[];
 }

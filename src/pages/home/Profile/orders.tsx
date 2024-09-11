@@ -39,7 +39,7 @@ export const Orders = () => {
               >
                 <div className="flex">
                   <img
-                    src={product.img}
+                    src={product.images[0].image}
                     style={{ width: "80px", height: "80px" }}
                     alt="product image"
                   />

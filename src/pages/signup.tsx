@@ -20,7 +20,7 @@ export const Signup = () => {
         const user = await findUser(token);
         if (user) {
           if (user.role === "user") {
-            navigate("/home");
+            navigate("/ecommerse");
           } else if (user.role === "admin") {
             navigate("/admin");
           }
@@ -40,7 +40,7 @@ export const Signup = () => {
       message.success("Successfully registered");
       localStorage.setItem("token", user.token);
       setUser(user.data);
-      navigate("/home");
+      navigate("/ecommerse");
     } catch (err) {
       console.error("Failed to add user:", err);
     }
