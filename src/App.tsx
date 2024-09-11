@@ -6,8 +6,11 @@ import Layout from "./components/Layout";
 import { createContext, useContext, useState } from "react";
 import { IUser } from "./interface";
 import About from "./pages/home/About";
-import { Profile } from "./pages/home/profile";
-import Home from "./pages/home/Home";
+
+import { Profile } from "./pages/home/Profile/profile.tsx";
+import { Signup } from "./pages/signup.tsx";
+import { Listing } from "./pages/home/listing.tsx";
+import Home from "./pages/home/Home.tsx";
 
 const routes = createBrowserRouter([
   {
@@ -35,6 +38,10 @@ const routes = createBrowserRouter([
             path: "profile",
             element: <Profile />,
           },
+          {
+            path: "listing",
+            element: <Listing />,
+          },
         ],
       },
       {
@@ -46,6 +53,10 @@ const routes = createBrowserRouter([
   {
     path: "login",
     element: <Login />,
+  },
+  {
+    path: "signup",
+    element: <Signup />,
   },
 ]);
 

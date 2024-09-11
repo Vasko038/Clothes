@@ -26,6 +26,12 @@ export const ordersApi = createApi({
 				method: "get",
 			}),
 		}),
+		getOrdersSearch: builder.query({
+			query: (params: string) => ({
+				url: `?${params}`,
+				method: "get",
+			})
+		}),
 		createOrder: builder.mutation({
 			query: (newProduct: IOrder) => ({
 				url: "",
@@ -58,6 +64,7 @@ export const ordersApi = createApi({
 export const {
 	useGetOrdersQuery,
 	useGetOrdersByUserIdQuery,
+	useGetOrdersSearchQuery,
 	useGetOrderByIdQuery,
 	useEditOrderMutation,
 	useDeleteOrderMutation,

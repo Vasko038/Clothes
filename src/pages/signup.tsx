@@ -1,13 +1,16 @@
 import { Button, Form, Input, message } from "antd";
 import { useNavigate } from "react-router-dom";
-import { useLoginMutation } from "../api/auth";
+import { useAddUserMutation } from "../api/users.ts";
+import { Loading } from "../components/Loading.tsx";
+import { useUser } from "../App.tsx";
 import { useEffect } from "react";
-import { findUser } from "../api/checkUser";
+import { findUser } from "../api/checkUser.ts";
 
-export const Login = () => {
+export const Signup = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const [login] = useLoginMutation();
+  const { setUser } = useUser();
+  const [addUser, { isLoading, isError }] = useAddUserMutation();
 
   useEffect(() => {
     const checkUser = async () => {
@@ -31,22 +34,20 @@ export const Login = () => {
   const onFinish = async () => {
     const data = form.getFieldsValue();
     try {
-      const res = await login(data).unwrap();
+      const user = await addUser({ ...data, role: "user" }).unwrap();
 
-      localStorage.setItem("token", res.token);
-
-      if (res.data.role === "user") {
-        navigate("/home");
-        message.success("Welcome back");
-      } else if (res.data.role === "admin") {
-        navigate("/admin");
-        message.success("Welcome back admin!");
-      }
-    } catch (error) {
-      console.log("Login failed", error);
-      message.error("Email or password are wrong");
+      console.log({ user });
+      message.success("Successfully registered");
+      localStorage.setItem("token", user.token);
+      setUser(user.data);
+      navigate("/home");
+    } catch (err) {
+      console.error("Failed to add user:", err);
     }
   };
+
+  if (isLoading) return <Loading />;
+  if (isError) return <div className="text-red-500">Error occured</div>;
 
   return (
     <div className="px-10 pt-10">
@@ -56,6 +57,18 @@ export const Login = () => {
         onFinish={onFinish}
         className="w-[350px] mx-auto"
       >
+        <Form.Item
+          name="fullname"
+          label="Fullname"
+          rules={[
+            {
+              required: true,
+              message: "Please enter your full name",
+            },
+          ]}
+        >
+          <Input className="h-11" />
+        </Form.Item>
         <Form.Item
           name="email"
           label="Email"
@@ -80,20 +93,23 @@ export const Login = () => {
         >
           <Input type="password" className="h-11" />
         </Form.Item>
-
+        <p className="mb-3">
+          By creating an account you agree with our Terms of Service, Privacy
+          Policy,
+        </p>
         <Button htmlType="submit" type="primary" className="h-11 w-[100%]">
-          Login
+          Create account
         </Button>
       </Form>
       <p className="text-gray-600 text-center mt-6">
-        Don`t have an account?{" "}
+        Already have an account?{" "}
         <span
           onClick={() => {
-            navigate("/signup");
+            navigate("/login");
           }}
           className="text-black cursor-pointer"
         >
-          Sign up
+          Log in
         </span>
       </p>
     </div>

@@ -7,7 +7,12 @@ import { AiOutlineTruck } from "react-icons/ai";
 import { VscKey } from "react-icons/vsc";
 import { FaRegUser } from "react-icons/fa6";
 import { TbLogout } from "react-icons/tb";
-import { Orders } from "./Orders.tsx";
+import { Orders } from "./orders.tsx";
+import { Address } from "./address.tsx";
+import { Wishlist } from "./wishlist.tsx";
+import { Password } from "./password.tsx";
+import { AccountDetails } from "./account-details.tsx";
+import { Logout } from "./logout.tsx";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -56,22 +61,22 @@ export const Profile: React.FC = () => {
       case "orders":
         return <Orders />;
       case "wishlist":
-        return <div>Your Wishlist</div>;
+        return <Wishlist />;
       case "address":
-        return <div>Your Addresses</div>;
+        return <Address />;
       case "password":
-        return <div>Change Password</div>;
+        return <Password />;
       case "account-details":
-        return <div>Account Details</div>;
+        return <AccountDetails />;
       case "log-out":
-        return <div>Logging Out...</div>;
+        return <Logout />;
       default:
         return <div>Select a menu item</div>;
     }
   };
 
   return (
-    <div className="mx-44 flex">
+    <div className="mx-10 xl:mx-44 flex">
       <Menu
         onClick={onClick}
         style={{ width: 256 }}

@@ -6,12 +6,14 @@ function Layout() {
   return (
     <>
       <div className="max-w-[1200px] mx-auto px-4">
-        <header className="flex justify-between items-center py-3">
+        <header className="flex items-center justify-between py-3">
           <Title level={3}>Ecnomerse</Title>
-          <nav className=" flex gap-3 items-center">
+          <nav className="flex items-center gap-3 ">
             <Link to="home">Home</Link>
             <Link to="about">About</Link>
             <Link to="contact">Contact</Link>
+            <Link to="profile">Profile</Link>
+            <Link to="listing">Listing</Link>
           </nav>
           <div>
             <Avatar>A</Avatar>
