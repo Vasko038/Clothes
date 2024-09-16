@@ -13,7 +13,7 @@ import { useGetProductsFilterQuery } from "../../api/products.ts";
 import { Loading } from "../../components/Loading.tsx";
 import { ICategory, IProduct, IProductFilters } from "../../interface";
 import { useGetCategoriesQuery } from "../../api/categories.ts";
-import { useNavigate } from "react-router-dom";
+import { ListingCard } from "../../components/listingCard.tsx";
 const { Title } = Typography;
 
 export const Listing: React.FC = () => {
@@ -32,8 +32,6 @@ export const Listing: React.FC = () => {
     error,
   } = useGetProductsFilterQuery({ params: filters, page });
   const { data: categories } = useGetCategoriesQuery(undefined);
-
-  const navigate = useNavigate();
 
   const sizes = [
     { id: 1, name: "S" },
@@ -213,46 +211,12 @@ export const Listing: React.FC = () => {
       <Col span={18}>
         <Row gutter={[32, 32]}>
           {products.items.map((product: IProduct, index: number) => (
-            <Col
-              key={index}
-              span={8}
-              onClick={() => {
-                navigate(`/ecommerse/product?id=${product.id}`);
-              }}
-            >
-              <div className="mt-8 cursor-pointer">
-                <img
-                  alt="product image"
-                  src={
-                    filters.color == "red"
-                      ? product.images[3].image
-                      : filters.color == "white"
-                        ? product.images[1].image
-                        : filters.color == "yellow"
-                          ? product.images[2].image
-                          : product.images[0].image
-                  }
-                  style={{ width: "100%", height: "250px", objectFit: "cover" }}
-                />
-                <Title level={5} className="mt-6 mb-4">
-                  {product.title}
-                </Title>
-                <div className="flex items-center gap-5">
-                  <div
-                    style={{
-                      width: "100px",
-                      height: "28px",
-                      borderRadius: "14px",
-                      border: "1px solid #E6E7E8",
-                    }}
-                    className="flex items-center justify-center"
-                  >
-                    {product ? "In stock" : "Out of stock"}
-                  </div>
-                  <p className="text-gray-600">${product.price}</p>
-                </div>
-              </div>
-            </Col>
+            <ListingCard
+              key={product.id}
+              filters={filters}
+              product={product}
+              index={index}
+            />
           ))}
         </Row>
         <Pagination
