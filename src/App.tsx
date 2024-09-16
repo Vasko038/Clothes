@@ -12,6 +12,7 @@ import { Signup } from "./pages/signup.tsx";
 import { Listing } from "./pages/home/listing.tsx";
 import Home from "./pages/home/Home.tsx";
 import Contact from "./pages/home/Contact.tsx";
+import { Product } from "./pages/home/product.tsx";
 
 const routes = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const routes = createBrowserRouter([
           {
             path: "listing",
             element: <Listing />,
+          },
+          {
+            path: "product",
+            element: <Product />,
           },
         ],
       },

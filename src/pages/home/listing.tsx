@@ -13,6 +13,7 @@ import { useGetProductsFilterQuery } from "../../api/products.ts";
 import { Loading } from "../../components/Loading.tsx";
 import { ICategory, IProduct, IProductFilters } from "../../interface";
 import { useGetCategoriesQuery } from "../../api/categories.ts";
+import { useNavigate } from "react-router-dom";
 const { Title } = Typography;
 
 export const Listing: React.FC = () => {
@@ -31,6 +32,8 @@ export const Listing: React.FC = () => {
     error,
   } = useGetProductsFilterQuery({ params: filters, page });
   const { data: categories } = useGetCategoriesQuery(undefined);
+
+  const navigate = useNavigate();
 
   const sizes = [
     { id: 1, name: "S" },
@@ -210,7 +213,13 @@ export const Listing: React.FC = () => {
       <Col span={18}>
         <Row gutter={[32, 32]}>
           {products.items.map((product: IProduct, index: number) => (
-            <Col key={index} span={8}>
+            <Col
+              key={index}
+              span={8}
+              onClick={() => {
+                navigate(`/ecommerse/product?id=${product.id}`);
+              }}
+            >
               <div className="mt-8 cursor-pointer">
                 <img
                   alt="product image"
